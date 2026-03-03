@@ -80,6 +80,9 @@ export async function ensureDeviceAsync(id: string, cfg: DeviceConfig): Promise<
   await session.send('Page.addScriptToEvaluateOnNewDocument', {
     source: kioskKeyboardScript
   });
+  await session.send('Page.addScriptToEvaluateOnNewDocument', {
+    source: "console.log('Loaded onscreen keyboard');"
+  });
   //--- Tried something else in inputRouter without much success, reverting back to this
 
   await session.send('Page.startScreencast', {
