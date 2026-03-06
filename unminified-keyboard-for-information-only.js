@@ -11,6 +11,8 @@
  * 5. Event Swallowing: HA's top-level components called stopPropagation() on clicks. Solved via Mathematical Hit-Testing.
  * 6. Ghost Clicks: Touchscreens firing rapid touchend/mousedown/click events caused through-clicks. Solved via 400ms Shield.
  * 7. Websocket Jitter: Rapid double-taps over CDP/remote connections. Solved via 250ms Debounce.
+ * 8. Enter Key vs SPA Forms: Forcing native form.submit() broke SPA API authentication sequences.
+ * Solved by dispatching fully simulated keydown/keypress/keyup sequences.
  */
 
 (function() {
@@ -304,22 +306,21 @@
             case '⏎':
                 if (activeInput.isContentEditable) {
                     document.execCommand('insertParagraph', false, null);
+                    // Explicitly notify that content changed
+                    activeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
                 } else if (activeInput.tagName === 'TEXTAREA') {
                     insertText('\n');
+                    activeInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+                    activeInput.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
                 } else {
-                    // Try to natively submit forms, or dispatch an Enter event to trick JS listeners
-                    if (activeInput.form) {
-                        if (typeof activeInput.form.requestSubmit === 'function') {
-                            activeInput.form.requestSubmit();
-                        } else {
-                            activeInput.form.submit();
-                        }
-                    } else {
-                        const enterEvent = new KeyboardEvent('keydown', {
-                            key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true, composed: true
-                        });
-                        activeInput.dispatchEvent(enterEvent);
-                    }
+                    // MODERN SPA SUBMISSION HOOK
+                    // Do NOT use activeInput.form.submit(). It triggers a native HTTP POST that bypasses 
+                    // Javascript-based authentication validation (like HA Login sequences).
+                    // Instead, simulate a physical Enter keystroke. Lit/React look for exactly this.
+                    const evInit = { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, composed: true, cancelable: true };
+                    activeInput.dispatchEvent(new KeyboardEvent('keydown', evInit));
+                    activeInput.dispatchEvent(new KeyboardEvent('keypress', evInit));
+                    activeInput.dispatchEvent(new KeyboardEvent('keyup', evInit));
                     hideKeyboard();
                 }
                 break;
