@@ -20,6 +20,12 @@ services:
 
 Raw Javascript that is being injected for those of you who are curious: https://github.com/SleepinDevil/RemoteWebViewServer/blob/main/unminified-keyboard-for-information-only.js
 
+Some screenshots of the onscreen keyboard:
+![Onscreen Keyboard](/images/1.png)
+![Onscreen Keyboard](/images/2.png)
+![Onscreen Keyboard](/images/3.png)
+![Onscreen Keyboard](/images/4.png)
+
 # Original description from Strange-V below
 
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
