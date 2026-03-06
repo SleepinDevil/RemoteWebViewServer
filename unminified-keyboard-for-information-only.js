@@ -13,6 +13,8 @@
  * 7. Websocket Jitter: Rapid double-taps over CDP/remote connections. Solved via 250ms Debounce.
  * 8. Enter Key vs SPA Forms: Forcing native form.submit() broke SPA API authentication sequences.
  * Solved by dispatching fully simulated keydown/keypress/keyup sequences.
+ * 9. Opening Ghost Clicks: Tapping low inputs caused the trailing click to hit the newly spawned keyboard. 
+ * Solved via 400ms Opening Shield to absorb residual touch events.
  */
 
 (function() {
@@ -352,6 +354,9 @@
         activeInput = inputElement;
         renderKeyboard();
 
+        // OPENING SHIELD: Prevent trailing events from the initial tap from hitting a key
+        window.__vkbOpeningShield = Date.now();
+
         // THE Z-BUMP: If already open, close and reopen to force the browser to restack
         // it above any newly opened Home Assistant <dialog> elements in the #top-layer.
         if (keyboardContainer.showPopover) {
@@ -486,6 +491,11 @@
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
+
+                    // OPENING SHIELD CHECK: Ignore keys if the keyboard JUST appeared
+                    if (window.__vkbOpeningShield && (Date.now() - window.__vkbOpeningShield < 400)) {
+                        return;
+                    }
 
                     // Only process keypress logic on the initial down-touch
                     if (['pointerdown', 'touchstart', 'mousedown', 'click'].includes(ev)) {
