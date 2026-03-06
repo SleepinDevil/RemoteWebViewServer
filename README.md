@@ -21,7 +21,8 @@ services:
 Raw Javascript that is being injected for those of you who are curious: https://github.com/SleepinDevil/RemoteWebViewServer/blob/main/unminified-keyboard-for-information-only.js
 
 Some screenshots of the onscreen keyboard:
-![Onscreen Keyboard](/images/1.png)
+
+<img src="images/1.png" width="200px">
 ![Onscreen Keyboard](/images/2.png)
 ![Onscreen Keyboard](/images/3.png)
 ![Onscreen Keyboard](/images/4.png)
