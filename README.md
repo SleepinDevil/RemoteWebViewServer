@@ -1,11 +1,3 @@
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
-
-# Remote WebView Server
-
-Headless browser that renders target web pages (e.g., Home Assistant dashboards) and streams them as image tiles over WebSocket to lightweight [clients](https://github.com/strange-v/RemoteWebViewClient) (ESP32 displays). The server supports multiple simultaneous clients, each with its own screen resolution, orientation, and per-device settings.
-
-![Remote WebView](/images/tiled_preview.png)
-
 # About this fork
 
 The modifications done in my fork is simple: provide an on-screen Latin Alphabet / English keyboard so I can do some basic keyentries on my ESP32 powered touch display.
@@ -26,7 +18,15 @@ services:
     #### rest of code is all exactly the same
 ```
 
-Unminified Javascript for those of you who are curious: 
+Raw Javascript that is being injected for those of you who are curious: https://github.com/SleepinDevil/RemoteWebViewServer/blob/main/unminified-keyboard-for-information-only.js
+
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
+
+# Remote WebView Server
+
+Headless browser that renders target web pages (e.g., Home Assistant dashboards) and streams them as image tiles over WebSocket to lightweight [clients](https://github.com/strange-v/RemoteWebViewClient) (ESP32 displays). The server supports multiple simultaneous clients, each with its own screen resolution, orientation, and per-device settings.
+
+![Remote WebView](/images/tiled_preview.png)
 
 ## Features
 
