@@ -6,6 +6,28 @@ Headless browser that renders target web pages (e.g., Home Assistant dashboards)
 
 ![Remote WebView](/images/tiled_preview.png)
 
+# About this fork
+
+The modifications done in my fork is simple: provide an on-screen Latin Alphabet / English keyboard so I can do some basic keyentries on my ESP32 powered touch display.
+
+There is literally no setup required on this one, I have been lazy and haven't even put together any ENVIRONMENT variables to enable/disable the keyboard.
+
+All you need to do to trial this is to point your Docker Compose file at this GitHub repo (full example code below from Strange-V's hard work).
+
+If you find any bugs please let me know. I might be able to fix things, but if you have a fix yourself, please put in a PR.
+
+```yaml
+services:
+  rwvserver:
+    #image: strangev/remote-webview-server:latest  # use :beta for pre-release
+    build: https://github.com/SleepinDevil/RemoteWebViewServer.git  # this line and commenting out the above line is all you need to do to try this
+    container_name: remote-webview-server
+    restart: unless-stopped
+    #### rest of code is all exactly the same
+```
+
+Unminified Javascript for those of you who are curious: 
+
 ## Features
 
 - Renders pages in a headless Chromium environment and streams diffs as tiles over WebSocket.
@@ -42,7 +64,8 @@ You can pin a stable release (`1.4.0`) or track channels (`latest`, `beta`) depe
 ```yaml
 services:
   rwvserver:
-    image: strangev/remote-webview-server:latest  # use :beta for pre-release
+    #image: strangev/remote-webview-server:latest  # use :beta for pre-release
+    build: https://github.com/SleepinDevil/RemoteWebViewServer.git
     container_name: remote-webview-server
     restart: unless-stopped
     environment:
