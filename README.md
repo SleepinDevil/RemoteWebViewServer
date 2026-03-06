@@ -22,10 +22,10 @@ Raw Javascript that is being injected for those of you who are curious: https://
 
 Some screenshots of the onscreen keyboard:
 
-<img src="images/1.png" width="200px">
-![Onscreen Keyboard](/images/2.png)
-![Onscreen Keyboard](/images/3.png)
-![Onscreen Keyboard](/images/4.png)
+<img src="images/1.png" height="250px">
+<img src="images/2.png" height="250px">
+<img src="images/3.png" height="250px">
+<img src="images/4.png" height="250px">
 
 # Original description from Strange-V below
 
