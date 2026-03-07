@@ -1,6 +1,10 @@
 # About this fork
 
-The modifications done in my fork is simple: provide an on-screen Latin Alphabet / English keyboard so I can do some basic keyentries on my ESP32 powered touch display.
+The modifications done in my fork is simple: 
+1. Provide an on-screen Latin Alphabet / English keyboard so I can do some basic keyentries on my ESP32 powered touch display.
+2. Create a Packet #6 that can send back the Current URL displayed on the screen back to the Client. This is safe to run on the server while the client does not have the code to process Packet #6 because there is a soft failsafe in the ESP32 Client code to ignore unknown packets
+
+# 1. On-screen Latin Alphabet / English keyboard
 
 There is literally no setup required on this one, I have been lazy and haven't even put together any ENVIRONMENT variables to enable/disable the keyboard.
 
@@ -23,6 +27,12 @@ Raw Javascript that is being injected for those of you who are curious: https://
 Some screenshots of the onscreen keyboard:
 
 <img src="images/1.png" height="250px"><img src="images/2.png" height="250px"><img src="images/3.png" height="250px"><img src="images/4.png" height="250px">
+
+# 2. Packet #6 containing URL information to send from server to client
+
+This modification allows the user to know what webpage URL the display is currently showing. This allows automations to temporarily take over and show a different URL on the display and then revert back to the previous URL the display was on. This is just a nice-ity and nothing more.
+
+If you build this server code without having my corresponding ESP32 Client code, then your ESP32 Client will show an unknown Packet #6 warning, but this warning can be safely ignored (or you can build your ESP32 device from my Client code too).
 
 # Original description from Strange-V below
 
